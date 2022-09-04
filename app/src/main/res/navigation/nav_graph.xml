@@ -22,5 +22,8 @@
         <action
             android:id="@+id/action_carFragment_to_productsFragment"
             app:destination="@id/productsFragment" />
+        <argument
+            android:name="products"
+            app:argType="com.example.mdpostres.Product[]" />
     </fragment>
 </navigation>

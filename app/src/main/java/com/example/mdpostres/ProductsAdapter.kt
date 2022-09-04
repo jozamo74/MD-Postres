@@ -1,5 +1,6 @@
 package com.example.mdpostres
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -14,14 +15,13 @@ import com.example.mdpostres.databinding.ItemProductBinding
  * Created by José Zambrano Moya on 31/8/22 at 10:26
  * More info: zambranomoya74@gmail.com
  ****/
-internal class ProductsAdapter(
+class ProductsAdapter(
     private val products: List<Product>,
     private val listener: OnClickListener
 
 ) : RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
 
-
-    internal inner class ViewHolder(private val binding: ItemProductBinding) :
+    inner class ViewHolder(private val binding: ItemProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun setListener(product: Product, listener: OnClickListener){
@@ -34,6 +34,7 @@ internal class ProductsAdapter(
 
         fun bind(product: Product) {
             binding.tvName.text = product.name
+            binding.tvPrice.text = "${product.price} €"
             Glide
                 .with(binding.root.context)
                 .load(product.url)
@@ -54,7 +55,7 @@ internal class ProductsAdapter(
             parent,
             false
         )
-
+        Log.d("car", "onCreateViewHolder() IN P")
         return ViewHolder(binding)
     }
 

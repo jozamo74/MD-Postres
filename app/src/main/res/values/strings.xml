@@ -8,4 +8,5 @@
     <string name="products_add_car">añadir</string>
     <string name="products_check_list">Pedido</string>
     <string name="car_pay">pagar</string>
+    <string name="car_back">atras</string>
 </resources>
