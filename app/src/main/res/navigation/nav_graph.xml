@@ -8,11 +8,13 @@
     <fragment
         android:id="@+id/productsFragment"
         android:name="com.example.mdpostres.ProductsFragment"
-        android:label="@string/products_title"
-        tools:layout="@layout/fragment_products" >
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_products">
         <action
             android:id="@+id/action_productsFragment_to_carFragment"
-            app:destination="@id/carFragment" />
+            app:destination="@id/carFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out" />
     </fragment>
     <fragment
         android:id="@+id/carFragment"
@@ -21,7 +23,9 @@
         tools:layout="@layout/fragment_car" >
         <action
             android:id="@+id/action_carFragment_to_productsFragment"
-            app:destination="@id/productsFragment" />
+            app:destination="@id/productsFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
         <argument
             android:name="products"
             app:argType="com.example.mdpostres.Product[]" />
@@ -36,6 +40,9 @@
         tools:layout="@layout/fragment_confirmation" >
         <action
             android:id="@+id/action_confirmationFragment_to_productsFragment"
-            app:destination="@id/productsFragment" />
+            app:destination="@id/productsFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
     </fragment>
+    <action android:id="@+id/action_global_confirmationFragment" app:destination="@id/confirmationFragment" />
 </navigation>

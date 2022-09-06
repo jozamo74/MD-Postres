@@ -2,7 +2,10 @@ package com.example.mdpostres
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
@@ -42,10 +45,31 @@ class MainActivity : AppCompatActivity() {
 
         val appBarConfiguration = AppBarConfiguration(navController.graph)
 
-
-
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration)
 
+        //Hide navigation icon
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            toolbar.title = destination.label
+            toolbar.navigationIcon = null
+        }
+    }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_confirmation) {
+            navController.navigate(R.id.action_global_confirmationFragment)
+        }
+        //return super.onOptionsItemSelected(item)
+        return NavigationUI.onNavDestinationSelected(item, navController) ||
+                super.onOptionsItemSelected(item)
+    }
+
+    // Cancel back button
+    override fun onBackPressed() {
+        //super.onBackPressed()
     }
 }
