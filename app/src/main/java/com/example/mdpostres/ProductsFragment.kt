@@ -64,4 +64,8 @@ class ProductsFragment : Fragment(R.layout.fragment_products), OnClickListener {
         }
     }
 
+    companion object {
+        const val TAG = "ProductsFragment"
+    }
+
 }

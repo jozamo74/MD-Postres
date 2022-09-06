@@ -2,17 +2,22 @@ package com.example.mdpostres
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.example.mdpostres.databinding.ActivityMainBinding
+import com.example.mdpostres.databinding.FragmentConfirmationBinding
 
 class MainActivity : AppCompatActivity() {
 
@@ -70,6 +75,14 @@ class MainActivity : AppCompatActivity() {
 
     // Cancel back button
     override fun onBackPressed() {
-        //super.onBackPressed()
+        if (navController.currentDestination?.id ==R.id.productsFragment) {
+            super.onBackPressed()
+        }
+        /*if (navController.currentDestination?.id != R.id.productsFragment) {
+            super.onBackPressed()
+        } else {
+            navController.navigate(R.id.action_confirmationFragment_to_productsFragment)
+
+        }*/
     }
 }
