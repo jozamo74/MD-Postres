@@ -1,10 +1,10 @@
 package com.example.mdpostres
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mdpostres.databinding.ItemCarBinding
+import java.text.DecimalFormat
 
 /****
  * Project: MD Postres
@@ -22,9 +22,14 @@ class CarAdapter(
 
         fun bind(product: Product) {
 
-            Log.d("car", "ViewHolder()")
             binding.tvName.text = product.name
-            binding.tvPrice.text = "${product.price} €"
+            val price = formatPrice(product)
+            binding.tvPrice.text =price
+        }
+
+        private fun formatPrice(product: Product): String {
+            val df = DecimalFormat("#,##0.00")
+            return "${df.format(product.price)} €"
         }
 
 
@@ -37,7 +42,6 @@ class CarAdapter(
             parent,
             false
         )
-        Log.d("car", "onCreateViewHolder() IN C")
         return ViewHolder(binding)
     }
 
@@ -45,7 +49,6 @@ class CarAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val product = products[position]
-        Log.d("CAR", "CAR:$product")
         holder.bind(product)
     }
 

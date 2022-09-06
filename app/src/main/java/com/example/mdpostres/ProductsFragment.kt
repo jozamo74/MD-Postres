@@ -2,12 +2,9 @@ package com.example.mdpostres
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import com.example.mdpostres.databinding.FragmentProductsBinding
 
 class ProductsFragment : Fragment(R.layout.fragment_products), OnClickListener {
@@ -48,14 +45,18 @@ class ProductsFragment : Fragment(R.layout.fragment_products), OnClickListener {
 
         binding.btnAddCar.setOnClickListener {
             //findNavController().navigate(R.id.action_productsFragment_to_carFragment)
-            val action = ProductsFragmentDirections.actionProductsFragmentToCarFragment(selectedProduct.toTypedArray())
-            NavHostFragment.findNavController(this).navigate(action)
+            if (selectedProduct.size > 0) {
+
+                val action = ProductsFragmentDirections.actionProductsFragmentToCarFragment(selectedProduct.toTypedArray())
+                NavHostFragment.findNavController(this).navigate(action)
+            } else {
+                Toast.makeText(requireContext(), "Ningún producto seleccionado", Toast.LENGTH_SHORT).show()
+            }
         }
 
     }
 
     override fun onClick(product: Product) {
-        Toast.makeText(requireContext(), "${product.name}, ${product.isSelected}", Toast.LENGTH_SHORT).show()
         if (product.isSelected){
             selectedProduct.add(product)
         } else {

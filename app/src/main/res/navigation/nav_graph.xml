@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/carFragment"
         android:name="com.example.mdpostres.CarFragment"
-        android:label="fragment_car"
+        android:label="@string/car_title"
         tools:layout="@layout/fragment_car" >
         <action
             android:id="@+id/action_carFragment_to_productsFragment"
@@ -25,5 +25,17 @@
         <argument
             android:name="products"
             app:argType="com.example.mdpostres.Product[]" />
+        <action
+            android:id="@+id/action_carFragment_to_confirmationFragment"
+            app:destination="@id/confirmationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/confirmationFragment"
+        android:name="com.example.mdpostres.ConfirmationFragment"
+        android:label="@string/confirmation_title"
+        tools:layout="@layout/fragment_confirmation" >
+        <action
+            android:id="@+id/action_confirmationFragment_to_productsFragment"
+            app:destination="@id/productsFragment" />
     </fragment>
 </navigation>

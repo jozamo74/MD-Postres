@@ -1,7 +1,6 @@
 package com.example.mdpostres
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.navigation.fragment.findNavController
@@ -22,7 +21,7 @@ class CarFragment : Fragment(R.layout.fragment_car) {
 
         val productList: List<Product> = args.products.toList()
 
-        Log.d("car", "Procucts: $productList  \n size:${productList.size}")
+        binding.tvSum.text = getString(R.string.car_sum, sum(productList))
 
         binding.recyclerView.adapter = CarAdapter(productList)
 
@@ -30,5 +29,17 @@ class CarFragment : Fragment(R.layout.fragment_car) {
             findNavController().navigate(R.id.action_carFragment_to_productsFragment)
         }
 
+        binding.btnPay.setOnClickListener {
+            findNavController().navigate(R.id.action_carFragment_to_confirmationFragment)
+        }
+
+    }
+
+    private fun sum(p: List<Product>): Float{
+        var sum = 0f
+        p.forEach { product ->
+            sum += product.price
+        }
+        return sum
     }
 }
