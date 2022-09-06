@@ -4,11 +4,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.example.mdpostres.databinding.ActivityMainBinding
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 
 class MainActivity : AppCompatActivity() {
@@ -19,11 +22,14 @@ class MainActivity : AppCompatActivity() {
         navHostFragment.navController
     }
 
+    private lateinit var mBottomSheetBehavior: BottomSheetBehavior<View>
+
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
 
@@ -49,6 +55,25 @@ class MainActivity : AppCompatActivity() {
             toolbar.title = destination.label
             toolbar.navigationIcon = null
         }
+
+        // Hide bottom_sheet
+        //binding.bottomSheetExit.bottomSheet.visibility = View.GONE
+        mBottomSheetBehavior = BottomSheetBehavior.from(binding.bottomSheetExit.bottomSheet)
+        mBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+
+        setupListener()
+
+
+    }
+
+    private fun setupListener() {
+        binding.bottomSheetExit.btnClose.setOnClickListener {
+            mBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        }
+
+        binding.bottomSheetExit.btnExit.setOnClickListener {
+            finish()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -68,7 +93,10 @@ class MainActivity : AppCompatActivity() {
     // Cancel back button
     override fun onBackPressed() {
         if (navController.currentDestination?.id ==R.id.productsFragment) {
-            super.onBackPressed()
+            mBottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            //dialog()
+
+            //super.onBackPressed()
         }
         /*if (navController.currentDestination?.id != R.id.productsFragment) {
             super.onBackPressed()
@@ -76,5 +104,13 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(R.id.action_confirmationFragment_to_productsFragment)
 
         }*/
+    }
+
+    private fun dialog() {
+        MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.bottom_sheet_title)
+            .setNegativeButton(R.string.bottom_sheet_cancel, null)
+            .setPositiveButton(R.string.bottom_sheet_exit) { _, _ -> finish() }
+            .show()
     }
 }
