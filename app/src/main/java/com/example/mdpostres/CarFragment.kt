@@ -12,6 +12,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.mdpostres.databinding.FragmentCarBinding
+import com.google.android.material.transition.MaterialSharedAxis
 
 
 class CarFragment : Fragment(R.layout.fragment_car), MenuProvider {
@@ -19,6 +20,12 @@ class CarFragment : Fragment(R.layout.fragment_car), MenuProvider {
     private val args: CarFragmentArgs by navArgs()
 
     private lateinit var binding: FragmentCarBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
+        exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

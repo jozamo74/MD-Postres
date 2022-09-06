@@ -63,9 +63,4 @@ class ProductsFragment : Fragment(R.layout.fragment_products), OnClickListener {
             selectedProduct.remove(product)
         }
     }
-
-    companion object {
-        const val TAG = "ProductsFragment"
-    }
-
 }
